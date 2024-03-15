@@ -1,10 +1,11 @@
+import os
 from openpyxl import load_workbook
 from openpyxl.cell.cell import Cell
 import re
 
 class ExcelHandler:
-    def __init__(self, excel_file_name, sheet_name, station_name):
-        self.excel_file_path = "C:\\Users\\harschn\\Documents\\Climate Normal Verification\\Data Verification Live\\" + station_name + "\\" + excel_file_name
+    def __init__(self, excel_file_name, sheet_name):
+        self.excel_file_path = os.path.abspath("Files/"  + excel_file_name)
         try:
             self.workbook = load_workbook(filename=self.excel_file_path)
             self.sheet = self.workbook[sheet_name]
@@ -37,7 +38,7 @@ class ExcelHandler:
         try:
             for rowIndex in range(row_max):
                 cell_value = self.sheet.cell(row=rowIndex + 1, column=1).value
-                if cell_value is not None and target_string.lower() in cell_value.lower():
+                if cell_value is not None and target_string.lower() in str(cell_value).lower():
                     return rowIndex
             return -1
         except KeyError as e:
