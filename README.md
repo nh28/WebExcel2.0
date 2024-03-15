@@ -40,8 +40,8 @@ If using PortableGit, in order to be able to pip you need to open the command pr
 >>> cd .venv
 >>> cd Scripts
 >>> activate.bat
->>> py pip freeze > requirements.txt
->>> cat requirements.txt
+>>> pip freeze > requirements.txt
+>>> type requirements.txt
 ```
 
 
