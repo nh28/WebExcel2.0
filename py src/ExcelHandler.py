@@ -21,11 +21,11 @@ class ExcelHandler:
                         index = value.index(",")
                         value = value[:index] + "." + value[index + 1:]
                     if "." in value:
-                        self.sheet.cell(row=row_index, column=column_index).value = float(value)
+                        self.sheet.cell(row=row_index + 1, column=column_index + 1).value = float(value)
                     else:
-                        self.sheet.cell(row=row_index, column=column_index).value = int(value)
+                        self.sheet.cell(row=row_index + 1, column=column_index + 1).value = int(value)
                 else:
-                    self.sheet.cell(row=row_index, column=column_index).value = value
+                    self.sheet.cell(row=row_index + 1, column=column_index + 1).value = value
 
             self.workbook.save(filename=self.excel_file_path)
 

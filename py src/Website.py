@@ -29,7 +29,7 @@ class Website:
                     print(table_name)
                     if table_name == "Days With ...":
                         table_name = "Days With..."
-                    row_index = excel_handler.find_index(table_name, 211)
+                    row_index = excel_handler.find_index(table_name, 230)
                     print(row_index)
                     
                     if table_name.lower() in ["frost-free", "sans gel", "période de neige", "snow-period"]: 
@@ -49,14 +49,14 @@ class Website:
             for row in rows:
                 row_name = row.select_one('th').text.strip()
                 col_index = column
-                
-                if row.select_one('td') is not None:
+                print(row_name.lower())
+                print(excel_handler.find_value(row_index).lower())
+                if row.select_one('td') is not None: #ensures that analytics can fill out ff accurately 
                     while (row_name.lower() not in excel_handler.find_value(row_index).lower() and
                            excel_handler.find_value(row_index).lower() not in row_name.lower() and
-                           row_index < 211):
+                           row_index < 230):
                         row_index += 1
-                    
-                    if row_index < 211:
+                    if row_index < 230:
                         row_index = self.iterate_row(row, row_index, col_index, excel_handler)
                     else:
                         print("Row not found")
@@ -66,9 +66,9 @@ class Website:
         
         for value in values:
             if value is not None and value.text.strip() != "":
-                excel_handler.write_excel(row_index + 1, col_index + 1, value.text.strip())
+                excel_handler.write_excel(row_index, col_index, value.text.strip())
             if value.select_one('b') is not None:
-                excel_handler.write_excel(row_index + 1, self.COLAK + 1, value.text.strip())
+                excel_handler.write_excel(row_index, self.COLAK, value.text.strip())
             col_index += 1
         
         return row_index + 1
