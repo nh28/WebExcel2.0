@@ -10,7 +10,6 @@ class CsvProcessor:
         self.folder_path = os.path.abspath("Files/")
 
     def process_csv_to_excel(self, csv_file, excel_file, sheet_name):
-        print("test")
         csv_df = pd.read_csv(os.path.join(self.folder_path, csv_file))
         workbook = load_workbook(os.path.join(self.folder_path, excel_file))
         sheet = workbook[sheet_name]
@@ -22,8 +21,6 @@ class CsvProcessor:
                 row_name = row["ÉLÉMENT_DES_NORMALES"]
                 
             row_index = self.find_row_index(sheet, row_name)
-            print(row_name)
-            print(row_index)
             if row_index != -1:
                 self.update_excel_row(sheet, row, row_index)
 

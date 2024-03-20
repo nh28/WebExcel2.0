@@ -12,15 +12,14 @@ sheetDataEN = "Data- Archive-Web Tables"
 sheetDataFR = "Data Archive Table-Web Table"
 sheetAnalytics =	"Analytic- Archive-Web Tables"
 
-webEN = "https://climate-dev.cmc.ec.gc.ca/climate_normals/results_1991_2020_e.html?searchType=stnName_1991&txtStationName_1991=bagotville&searchMethod=contains&txtCentralLatMin=0&txtCentralLatSec=0&txtCentralLongMin=0&txtCentralLongSec=0&stnID=83000000&dispBack=1"
-webFR = "https://climat-dev.cmc.ec.gc.ca/climate_normals/results_1991_2020_f.html?searchType=stnName_1991&txtStationName_1991=bagotville&searchMethod=contains&txtCentralLatMin=0&txtCentralLatSec=0&txtCentralLongMin=0&txtCentralLongSec=0&stnID=83000000&dispBack=1"
+webEN = "https://climate-dev.cmc.ec.gc.ca/climate_normals/results_1991_2020_e.html?searchType=stnProv&lstProvince=&txtCentralLatMin=0&txtCentralLatSec=0&txtCentralLongMin=0&txtCentralLongSec=0&stnID=363000000&dispBack=0"
+webFR = "https://climat-dev.cmc.ec.gc.ca/climate_normals/results_1991_2020_f.html?searchType=stnProv&lstProvince=&txtCentralLatMin=0&txtCentralLatSec=0&txtCentralLongMin=0&txtCentralLongSec=0&stnID=363000000&dispBack=0"
 
-station_name = "BAGOTVILLE"
-station_province = "QC"
+station_name = "BC_VICTORIA_(UNIVERSITÉ)"
 
 try:
     print("Getting Data...Please Wait")
-
+    
     dataEN = DataWebsite(data_en, sheetDataEN)
     dataEN.parse_website(webEN, dataEN.handler)
     print("1/6 complete")
@@ -41,11 +40,11 @@ try:
     print("4/6 complete")
     
     csv = CsvProcessor()
-    csv.process_csv_to_excel("en_1991-2020_Normals_" + station_province + "_" + station_name + ".csv", "1991-2020 Normals - Data Plan - DataCSV_EN.xlsx", sheetDataEN)
+    csv.process_csv_to_excel("en_1991-2020_Normals_" + station_name + ".csv", "1991-2020 Normals - Data Plan - DataCSV_EN.xlsx", sheetDataEN)
     print("5/6 complete")
 
     csv2 = CsvProcessor()
-    csv2.process_csv_to_excel("fr_1991-2020_Normales_" + station_province + "_" + station_name + ".csv", "1991-2020 Normals - Data Plan - DataCSV_FR.xlsx", sheetDataEN)
+    csv2.process_csv_to_excel("fr_1991-2020_Normales_" + station_name + ".csv", "1991-2020 Normals - Data Plan - DataCSV_FR.xlsx", sheetDataEN)
     print("6/6 complete")
 
 

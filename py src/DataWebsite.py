@@ -12,7 +12,8 @@ class DataWebsite(Website):
         return doc.select("details#normals-data table")
 
     def handle_only_year_and_code(self, table, row_index):
-        if self.table_num == 1:
+        table_id = self.check_ff(table)
+        if table_id in ["probability of last temperature in spring <= 0°c, on or after (date)","probabilités dernière température de printemps <= 0 °c, à la date indiquée ou après"]:
             values = table.select("td")
             index = 200
             for val in values:
@@ -23,6 +24,13 @@ class DataWebsite(Website):
             self.iterate_table(row_index, table, self.COLAK, self.handler)
             self.table_num += 1
 
+    def check_ff(self, table):
+        rows = table.select('tbody tr')
+            
+        if rows:
+            first_row = rows[0]
+            return first_row.select_one('th').text.strip().lower()
+            
     def set_col_index(self):
         return self.COLY
     

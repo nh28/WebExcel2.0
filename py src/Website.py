@@ -26,11 +26,9 @@ class Website:
                 row_index = 0
                 for single_table in all_tables:
                     table_name = single_table.select_one('a').text.strip()
-                    print(table_name)
                     if table_name == "Days With ...":
                         table_name = "Days With..."
                     row_index = excel_handler.find_index(table_name, 230)
-                    print(row_index)
                     
                     if table_name.lower() in ["frost-free", "sans gel", "période de neige", "snow-period"]: 
                         self.handle_only_year_and_code(single_table, row_index)
@@ -49,8 +47,6 @@ class Website:
             for row in rows:
                 row_name = row.select_one('th').text.strip()
                 col_index = column
-                print(row_name.lower())
-                print(excel_handler.find_value(row_index).lower())
                 if row.select_one('td') is not None: #ensures that analytics can fill out ff accurately 
                     while (row_name.lower() not in excel_handler.find_value(row_index).lower() and
                            excel_handler.find_value(row_index).lower() not in row_name.lower() and
