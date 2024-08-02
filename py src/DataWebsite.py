@@ -15,7 +15,7 @@ class DataWebsite(Website):
         table_id = self.check_ff(table)
         if table_id in ["probability of last temperature in spring <= 0°c, on or after (date)","probabilités dernière température de printemps <= 0 °c, à la date indiquée ou après"]:
             values = table.select("td")
-            index = 200
+            index = 240
             for val in values:
                 self.handler.write_excel(index, self.COLAK, val.text.strip())
                 index += 1
