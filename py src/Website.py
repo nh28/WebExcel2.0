@@ -1,6 +1,5 @@
 import requests
 from bs4 import BeautifulSoup
-
 class Website:
     def __init__(self):
         self.COLY = 24
@@ -26,10 +25,9 @@ class Website:
                 row_index = 0
                 for single_table in all_tables:
                     table_name = single_table.select_one('a').text.strip()
-                    if table_name == "Days With ...":
-                        table_name = "Days With..."
                     row_index = excel_handler.find_index(table_name, 230)
                     
+                    print(table_name)
                     if table_name.lower() in ["frost-free", "sans gel", "période de neige", "snow-period"]: 
                         self.handle_only_year_and_code(single_table, row_index)
                     else:
@@ -48,13 +46,18 @@ class Website:
                 row_name = row.select_one('th').text.strip()
                 col_index = column
                 if row.select_one('td') is not None: #ensures that analytics can fill out ff accurately 
-                    while (row_name.lower() not in excel_handler.find_value(row_index).lower() and
-                           excel_handler.find_value(row_index).lower() not in row_name.lower() and
+                    excel_val = excel_handler.find_value(row_index)
+                    print(excel_val)
+                    print(row_name)
+                    while (row_name.lower() not in excel_val.lower() and
+                           excel_val.lower() not in row_name.lower() and
                            row_index < 230):
                         row_index += 1
+                        excel_val = excel_handler.find_value(row_index)
                     if row_index < 230:
                         row_index = self.iterate_row(row, row_index, col_index, excel_handler)
                     else:
+                        print(row_name)
                         print("Row not found")
     
     def iterate_row(self, row, row_index, col_index, excel_handler):
