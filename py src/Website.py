@@ -1,5 +1,6 @@
 import requests
 from bs4 import BeautifulSoup
+
 class Website:
     def __init__(self):
         self.COLY = 24
